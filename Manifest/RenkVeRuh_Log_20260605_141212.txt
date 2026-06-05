@@ -1,0 +1,84 @@
+
+========================================
+  RenkVeRuh Media Processor
+  2026-06-05 14:12:12
+========================================
+  WhatsAppRAW : D:\RenkVeRuh\WhatsAppRAW
+  Directory   : D:\RenkVeRuh\Directory
+  BlobMedia   : D:\RenkVeRuh\BlobMedia
+  Manifest    : D:\RenkVeRuh\Manifest
+
+  Checksum cache not found -- will be created at D:\RenkVeRuh\Manifest\RenkVeRuh_ChecksumDB.csv
+
+[ Phase 0 ] Differential analysis: Directory vs BlobMedia (checksum)...
+
+  Hashing Directory files for Phase 0...
+  Diff report saved: D:\RenkVeRuh\Manifest\RenkVeRuh_Diff_20260605_141212.csv
+
+  Differential Summary:
+    In sync (skip upload)          : 66
+    Needs uploading                : 0
+    Size mismatch (re-upload)      : 0
+    Checksum mismatch (re-upload)  : 0
+    Blob only (orphaned Azure)     : 0
+
+  All Directory files are already in Azure Blob (checksum verified). Nothing to upload.
+
+[ Phase 1 ] Scanning WhatsAppRAW and Directory...
+
+  Checking Directory for numbering gaps...
+  No gaps found -- Directory numbering is clean.
+
+  Manifest written: D:\RenkVeRuh\Manifest\RenkVeRuh_Manifest_20260605_141212.csv
+
+  Summary:
+    Directory files OK (skip)  : 36
+    Gap fixes needed           : 0
+    New files to copy in       : 0
+    Thumbnails needed          : 0
+    Unrecognised (skipped)     : 0
+
+  File-by-file plan:
+    [OK_EXHIBIT        ] Exhibit001.mp4 [thumb OK]
+    [OK_EXHIBIT        ] Exhibit002.mp4 [thumb OK]
+    [OK_EXHIBIT        ] Exhibit003.mp4 [thumb OK]
+    [OK                ] Video001.mp4 [thumb OK]
+    [OK                ] Video002.mp4 [thumb OK]
+    [OK                ] Video003.mp4 [thumb OK]
+    [OK                ] Video004.mp4 [thumb OK]
+    [OK                ] Video005.mp4 [thumb OK]
+    [OK                ] Video006.mp4 [thumb OK]
+    [OK                ] Video007.mp4 [thumb OK]
+    [OK                ] Video008.mp4 [thumb OK]
+    [OK                ] Video009.mp4 [thumb OK]
+    [OK                ] Video010.mp4 [thumb OK]
+    [OK                ] Video011.mp4 [thumb OK]
+    [OK                ] Video012.mp4 [thumb OK]
+    [OK                ] Video013.mp4 [thumb OK]
+    [OK                ] Video014.mp4 [thumb OK]
+    [OK                ] Video015.mp4 [thumb OK]
+    [OK                ] Video016.mp4 [thumb OK]
+    [OK                ] Video017.mp4 [thumb OK]
+    [OK                ] Video018.mp4 [thumb OK]
+    [OK                ] Video019.mp4 [thumb OK]
+    [OK                ] Video020.mp4 [thumb OK]
+    [OK                ] Video021.mp4 [thumb OK]
+    [OK                ] Video022.mp4 [thumb OK]
+    [OK                ] Video023.mp4 [thumb OK]
+    [OK                ] Video024.mp4 [thumb OK]
+    [OK                ] Video025.mp4 [thumb OK]
+    [OK                ] Video026.mp4 [thumb OK]
+    [OK                ] Video027.mp4 [thumb OK]
+    [OK                ] Image001.jpeg
+    [OK                ] Image002.jpeg
+    [OK                ] Image003.jpeg
+    [OK                ] Image004.jpeg
+    [OK                ] Image005.jpeg
+    [OK                ] Image006.jpeg
+
+  Nothing to do -- WhatsAppRAW is empty and Directory is fully up to date.
+
+========================================
+  Done. No changes made.
+========================================
+

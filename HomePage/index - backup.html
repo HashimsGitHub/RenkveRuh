@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Turkish Art Gallery — Renk ve Ruh | Uzma Khan</title>
+  <meta name="description" content="Renk ve Ruh — Turkish Art Gallery. A curated collection of Anatolian masterpieces with rich video exhibits, Iznik tiles, Ottoman manuscripts, and Anatolian earth.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root {
+      --gallery-bg-base:   #fef4e8;
+      --gallery-bg-deep:   #f7ebd4;
+      --gallery-bg-card:   #fff8ef;
+      --gallery-bg-alt:    #fdf0df;
+      --gallery-gold:      #c79a3e;
+      --gallery-gold-dark: #9e762d;
+      --gallery-glow:      #f2ddb0;
+      --gallery-terracotta:#b45a3b;
+      --gallery-cobalt:    #2c6280;
+      --gallery-cobalt-light:#4d7c9b;
+      --gallery-copper:    #b87a4a;
+      --gallery-ebony:     #2c2822;
+      --bg-main:           var(--gallery-bg-base);
+      --bg-card:           var(--gallery-bg-card);
+      --bg-card-alt:       var(--gallery-bg-alt);
+      --text-body:         var(--gallery-ebony);
+      --text-muted:        #6b5a48;
+      --border-color:      rgba(199,154,62,0.4);
+      --shadow-sm:         rgba(90, 65, 35, 0.08);
+      --shadow-md:         rgba(70, 50, 25, 0.12);
+      --accent-gold:       var(--gallery-gold);
+      --accent-cobalt:     var(--gallery-cobalt);
+      --accent-terra:      var(--gallery-terracotta);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: linear-gradient(145deg, #fef4e8 0%, #faf0e0 100%);
+      font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+      color: var(--text-body);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image: radial-gradient(circle at 20% 40%, rgba(199,154,62,0.03) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content:"";
+      position:fixed; inset:20px;
+      border:1px solid rgba(199,154,62,0.5);
+      border-radius: 3px;
+      pointer-events:none; z-index:100;
+      box-shadow: 0 0 0 1px rgba(199,154,62,0.15), inset 0 0 56px rgba(199,154,62,0.05);
+    }
+
+    .bg-pattern {
+      position:fixed; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' opacity='0.035'%3E%3Cpath fill='none' stroke='%23b45a3b' stroke-width='0.6' d='M30 70 Q55 45 85 65 T130 55'/%3E%3Cpath fill='none' stroke='%232c6280' stroke-width='0.5' d='M20 120 Q50 100 70 120 T120 110'/%3E%3Cpath fill='none' stroke='%23c79a3e' stroke-width='0.5' d='M145 30 Q165 55 150 85 T170 130'/%3E%3Ccircle cx='55' cy='145' r='12' fill='none' stroke='%23c79a3e' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 140px 140px;
+      pointer-events:none; z-index:0;
+    }
+
+    .page {
+      position:relative; z-index:2;
+      max-width:1480px; margin:0 auto;
+      padding:0 1.8rem 5rem;
+      background: transparent;
+    }
+
+    nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.2rem 1.8rem 1rem;
+      border-bottom:1px solid var(--border-color);
+      position:sticky; top:0; z-index:60;
+      background: rgba(254,244,232,0.92); 
+      backdrop-filter: blur(14px);
+      font-family:'Raleway', sans-serif;
+      border-radius: 0 0 12px 12px;
+    }
+    .nav-brand {
+      font-family:'Playfair Display', serif; font-size:1.35rem;
+      letter-spacing:4px; font-weight:600; color: var(--accent-cobalt);
+      text-shadow: 0 1px 0 rgba(199,154,62,0.2);
+      border-left: 2px solid var(--accent-gold); padding-left: 14px;
+    }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a {
+      color: var(--text-body); text-decoration:none;
+      font-family:'Raleway', sans-serif; font-size:0.78rem;
+      letter-spacing:2.2px; text-transform:uppercase; font-weight:500;
+      transition: color 0.25s, border-bottom 0.2s;
+      border-bottom:1px solid transparent; padding-bottom:4px;
+    }
+    .nav-links a:hover { color: var(--accent-terra); border-bottom-color: var(--accent-gold); }
+
+    .nav-menu-btn {
+      display:none; background:none; border:1px solid var(--accent-gold);
+      color: var(--accent-cobalt); padding:0.35rem 0.8rem;
+      font-size:1.2rem; cursor:pointer; border-radius:3px;
+      font-family: monospace;
+    }
+
+    .ornament {
+      display:flex; align-items:center; justify-content:center;
+      gap:12px; margin:0.8rem 0;
+    }
+    .ornament .line {
+      height:1px; width:70px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+    }
+    .ornament .diamond {
+      width:8px; height:8px; background: var(--accent-terra);
+      transform:rotate(45deg); box-shadow:0 0 4px rgba(180,90,59,0.4);
+    }
+    .ornament-star {
+      font-size:1.5rem; color: var(--accent-gold); line-height:1;
+    }
+
+    .hero { 
+      text-align:center; padding: 2.8rem 1rem 2.5rem; 
+      background: radial-gradient(ellipse at 50% 0%, rgba(199,154,62,0.08), transparent);
+      border-radius: 64px 24px 64px 24px;
+      margin: 0 0 1rem 0;
+    }
+    .hero-subtitle-top {
+      font-family:'Raleway', sans-serif; font-size:0.7rem;
+      letter-spacing:6px; text-transform:uppercase;
+      color: var(--accent-terra); font-weight:600;
+    }
+    .hero h1 {
+      font-family:'Playfair Display', serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight:700; letter-spacing:6px; color: var(--accent-cobalt);
+      text-shadow: 2px 2px 0 rgba(199,154,62,0.15);
+    }
+    .hero h1 .amp { color: var(--accent-gold); font-style:italic; font-weight:400; }
+    .hero h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.2vw, 1.5rem);
+      font-weight:400; letter-spacing:8px;
+      color: #7a684e; text-transform:uppercase;
+    }
+    .hero-tagline {
+      font-size:1.1rem; font-style:normal;
+      color: #9b7b54; letter-spacing:1px;
+      background: rgba(255,248,235,0.7); display: inline-block;
+      padding:0.4rem 1.5rem; border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    .section-header { text-align:center; margin:3rem 0 2rem; }
+    .section-header h3 {
+      font-family:'Playfair Display', serif;
+      font-size: clamp(1rem, 2.4vw, 1.5rem);
+      letter-spacing:6px; color: var(--accent-cobalt);
+      font-weight:500; display:inline-block; background: rgba(44,98,128,0.08);
+      padding:0.3rem 1.8rem; border-radius: 60px;
+      backdrop-filter: blur(2px);
+    }
+    .section-header p {
+      font-size:0.95rem; font-style:italic;
+      color: #8b7456; margin-top:0.6rem;
+    }
+
+    .loading-state, .no-media {
+      text-align:center; padding:2.5rem 1rem;
+      font-family:'Raleway',sans-serif; font-size:0.75rem;
+      letter-spacing:3px; text-transform:uppercase;
+      color: #9b866a; background: rgba(253,240,223,0.6);
+      border-radius: 40px;
+    }
+
+    /* === CAROUSEL — refined video frame with balanced size (smaller, elegant) === */
+    .carousel-section { margin:0.5rem 0 2rem; }
+    .swiper { width:100%; padding:20px 0 48px !important; }
+
+    /* Video frame container — more compact and proportionate */
+    .gallery-frame {
+      background: linear-gradient(135deg, #dcb067, #f8e5be, #cfa352, #eeddae, #c2903c);
+      padding: 12px 14px 14px 12px;   /* reduced padding for smaller visual footprint */
+      border-radius: 32px 12px 32px 12px;
+      box-shadow: 0 18px 32px -12px rgba(70, 45, 20, 0.28), inset 0 1px 4px rgba(255,245,200,0.7);
+      max-width: 860px;               /* capped max-width for balanced size */
+      width: 90%;                     /* responsive width — smaller on most screens */
+      margin: 0 auto;
+      transition: all 0.35s cubic-bezier(0.2,0.9,0.4,1.1);
+      cursor: pointer;
+    }
+    .gallery-frame:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 26px 42px -14px rgba(60, 40, 15, 0.3);
+    }
+    .frame-inner {
+      border-radius: 24px 4px 24px 4px;
+      overflow: hidden;
+      background: #1e1914;
+      position: relative;
+    }
+    .frame-inner video {
+      width: 100%;
+      height: auto;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-frame:hover .frame-inner video { transform: scale(1.01); }
+    
+    .art-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(44,44,38,0.85);
+      backdrop-filter: blur(5px);
+      color: #f7e5c2;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      padding: 0.2rem 0.75rem;
+      border-radius: 30px;
+      border-left: 2px solid var(--accent-gold);
+      z-index: 2;
+    }
+    .video-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 54px;           /* smaller play button */
+      height: 54px;
+      background: rgba(44,98,128,0.65);
+      border-radius: 50%;
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid #f2e0bd;
+      transition: all 0.2s ease;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .video-play-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: #fef0da;
+      margin-left: 3px;
+    }
+    .slide-caption {
+      text-align: center;
+      margin-top: 0.8rem;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--accent-cobalt);
+      letter-spacing: 0.5px;
+    }
+    .slide-meta {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      margin: 0.4rem 0 0.1rem;
+      flex-wrap: wrap;
+    }
+    .slide-meta span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #7e684b;
+    }
+    .slide-desc {
+      text-align: center;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #9b7e58;
+      margin-top: 0.2rem;
+    }
+    .swiper-button-next, .swiper-button-prev {
+      color: var(--accent-cobalt);
+      background: rgba(254,244,232,0.9);
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .swiper-button-next:after, .swiper-button-prev:after { font-size: 18px; font-weight: bold; }
+    .swiper-button-next:hover, .swiper-button-prev:hover {
+      background: var(--accent-gold);
+      color: #2c2822;
+    }
+    .swiper-pagination-bullet { background: var(--accent-cobalt); opacity: 0.35; }
+    .swiper-pagination-bullet-active { background: var(--accent-terra); opacity: 1; }
+
+    /* COLLECTION GRID (still images) */
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.4rem;
+    }
+    .craft-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(199,154,62,0.4);
+      border-radius: 20px 6px 20px 6px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 8px 18px var(--shadow-sm);
+    }
+    .craft-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 20px 30px -12px rgba(80, 55, 25, 0.2);
+    }
+    .craft-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .craft-card:hover .craft-card-img { transform: scale(1.03); }
+    .craft-card-body { padding: 0.9rem 1.1rem 1.1rem; }
+    .craft-card-num {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-terra);
+    }
+    .craft-card-title { font-size: 1rem; font-weight: 600; color: var(--accent-cobalt); }
+    .tile-corner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 30px 30px 0;
+      border-color: transparent var(--accent-gold) transparent transparent;
+      opacity: 0.6;
+    }
+
+    /* CRAFT CINEMA (Artisan Films) — now also with smaller, responsive video cards */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1.2rem;
+    }
+    .video-frame-outer {
+      background: linear-gradient(145deg, #d8ae5c, #f7e5bd, #c69742, #eed9a4);
+      padding: 10px 12px 12px 10px;
+      border-radius: 26px 10px 26px 10px;
+      box-shadow: 0 12px 26px -8px rgba(70, 45, 20, 0.2);
+      transition: all 0.3s ease;
+      max-width: 100%;
+    }
+    .video-frame-outer:hover { transform: translateY(-4px); box-shadow: 0 20px 36px -10px rgba(0,0,0,0.18);}
+    .video-inner {
+      border-radius: 18px 2px 18px 2px;
+      overflow: hidden;
+      background: #1a1612;
+      position: relative;
+    }
+    .video-inner video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .play-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(44,40,34,0.25);
+      backdrop-filter: blur(2px);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .play-overlay.hidden { display: none; }
+    .play-btn {
+      width: 56px;
+      height: 56px;
+      background: rgba(44,98,128,0.4);
+      border: 1.5px solid #f2e0bd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      backdrop-filter: blur(5px);
+    }
+    .play-overlay:hover .play-btn { transform: scale(1.08); background: rgba(44,98,128,0.65);}
+    .play-btn svg { width: 24px; height: 24px; fill: #fef0da; margin-left: 3px; }
+    .video-badge-art {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(253,245,228,0.94);
+      border-left: 2px solid var(--accent-terra);
+      color: var(--accent-cobalt);
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      backdrop-filter: blur(3px);
+    }
+    .video-caption {
+      text-align: center;
+      padding: 0.7rem 0.3rem 0.2rem;
+    }
+    .video-caption .v-title { font-size: 1rem; font-weight: 500; color: var(--accent-cobalt);}
+    .video-caption .v-meta { font-family: 'Raleway', sans-serif; font-size: 0.6rem; letter-spacing: 1.5px; color: #8e7656; margin-top: 0.15rem;}
+
+    /* Lightboxes (fullscreen but video ratio preserved) */
+    .lightbox-overlay, .vlightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,25,20,0.94);
+      z-index: 300;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .lightbox-overlay.open, .vlightbox-overlay.open { display: flex; flex-direction: column; }
+    .lightbox-content, .vlightbox-content {
+      position: relative;
+      max-width: 85vw;
+      width: auto;
+      max-height: 85vh;
+      background: linear-gradient(145deg, #c39042, #ecd59a, #b27e32, #e2c888);
+      padding: 12px;
+      border-radius: 28px 8px 28px 8px;
+    }
+    .lightbox-content video, .vlightbox-content video {
+      width: 100%;
+      max-height: 75vh;
+      border-radius: 20px 2px 20px 2px;
+      display: block;
+      margin: 0 auto;
+    }
+    .lightbox-caption, .vlightbox-caption {
+      text-align: center;
+      margin-top: 0.6rem;
+      font-size: 0.9rem;
+      color: #fff2e0;
+      letter-spacing: 1px;
+    }
+    .lightbox-close, .vlightbox-close {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      width: 34px;
+      height: 34px;
+      background: #fff6ea;
+      border: 1px solid var(--accent-gold);
+      border-radius: 50%;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .lightbox-close:hover, .vlightbox-close:hover { background: var(--accent-terra); color: #fff; }
+
+    .legacy-note {
+      text-align: center;
+      margin: 3rem 1rem 1rem;
+      padding: 1.8rem 1.8rem;
+      background: linear-gradient(115deg, #fdf2e4, #fff8ef);
+      border-radius: 48px 18px 48px 18px;
+      border-top: 1px solid var(--accent-gold);
+      border-bottom: 1px solid var(--accent-cobalt);
+    }
+    .legacy-note p { font-size: 0.95rem; line-height: 1.6; color: #4a3e2c; }
+    footer {
+      margin-top: 3rem;
+      border-top: 1px solid var(--border-color);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      color: #8b7552;
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 0 1rem 3rem; }
+      nav { padding: 0.8rem 1rem; }
+      .nav-links { display: none; }
+      .nav-menu-btn { display: block; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(254,244,232,0.98);
+        padding: 1.2rem;
+        gap: 1rem;
+        backdrop-filter: blur(8px);
+      }
+      body::after { inset: 8px; }
+      .swiper-button-next, .swiper-button-prev { width: 34px; height: 34px; }
+      .video-play-icon { width: 44px; height: 44px; }
+      .video-play-icon svg { width: 22px; height: 22px; }
+      .gallery-frame { width: 95%; padding: 10px; }
+      .slide-caption { font-size: 0.9rem; }
+      .slide-meta span { font-size: 0.6rem; }
+      .lightbox-content, .vlightbox-content { max-width: 92vw; }
+    }
+
+    @media (min-width: 1200px) {
+      .gallery-frame { max-width: 780px; } /* even more balanced on large screens */
+    }
+  </style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<nav>
+  <div class="nav-brand">◈ TURKISH ART GALLERY ◈</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#featured">Exhibits</a></li>
+    <li><a href="#collections">Collection</a></li>
+    <li><a href="#craft-stories">Artisan Films</a></li>
+    <li><a href="#about">Our Story</a></li>
+  </ul>
+  <button class="nav-menu-btn" onclick="toggleNav()" aria-label="Menu">☰</button>
+</nav>
+<div class="page">
+  <header class="hero">
+    <div class="ornament"><div class="diamond"></div><div class="line"></div><span class="ornament-star">✧</span><div class="line"></div><div class="diamond"></div></div>
+    <p class="hero-subtitle-top">Istanbul — Konya — İznik</p>
+    <h1>Renk <span class="amp">ve</span> Ruh</h1>
+    <h2>Uzma Khan</h2>
+    <div class="ornament"><div class="diamond"></div><div class="line" style="width:50px"></div><span class="ornament-star">⚜️</span><div class="line" style="width:50px"></div><div class="diamond"></div></div>
+    <p class="hero-tagline">Renklerin ruhla buluştuğu yer | Where colors meet the soul</p>
+  </header>
+
+  <section id="featured" class="carousel-section">
+    <div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ EXHIBITS ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Moving masterpieces — Turkish art in motion</p></div>
+    <div id="scanStatus"></div><div id="carouselWrap"><div class="loading-state"><span class="loading-dots">curating video exhibits</span></div></div>
+  </section>
+
+  <section id="collections"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ COLLECTION ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Every piece, a fragment of Turkish heritage</p></div>
+    <div id="gridWrap"><div class="loading-state"><span class="loading-dots">assembling collection</span></div></div>
+  </section>
+
+  <section id="craft-stories"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ ARTISAN FILMS ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Witness the hands that weave, glaze and carve</p></div>
+    <div id="videoScanStatus" style="text-align:center; font-family:Raleway; font-size:0.7rem; letter-spacing:2px; color:#8b7456;"></div>
+    <div id="videoWrap"><div class="loading-state"><span class="loading-dots">searching artisan films</span></div></div>
+  </section>
+
+  <div id="about" class="legacy-note"><div class="ornament"><div class="diamond"></div><div class="line"></div><span>⚜️ OUR STORY ⚜️</span><div class="line"></div><div class="diamond"></div></div>
+    <p>Renk ve Ruh means “Colors and Soul.” It reflects our belief that every artwork should carry both beauty and emotion. Inspired by nature, creativity, and handcrafted artistry, we create unique pieces that add warmth, character, and a personal touch to your home.</p>
+    <p><strong>Tuvalden kalbe uzanan bir yolculuk.</strong></p>
+  </div>
+  <footer><span>🏺 Uzma Khan</span> <span>⚜️ Yalova</span> <span>© 2026 · Renk ve Ruh</span></footer>
+</div>
+
+<!-- Lightboxes -->
+<div class="lightbox-overlay" id="imgLightbox" onclick="closeImgLight(event)"><div class="lightbox-content"><button class="lightbox-close" onclick="closeImgLightDirect()">✕</button><video id="lightboxExhibitVideo" controls playsinline></video><div class="lightbox-caption" id="lightboxCaption"></div></div></div>
+<div class="vlightbox-overlay" id="vidLightbox" onclick="closeVidLight(event)"><div class="vlightbox-content"><button class="vlightbox-close" onclick="closeVidLightDirect()">✕</button><video id="lightboxVideo" controls playsinline></video><div class="vlightbox-caption" id="vidLightboxCaption"></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+const BASE_URL = 'https://smbclouddrive.blob.core.windows.net/renk-ve-ruh/';
+const EXHIBIT_PREFIX = 'Exhibit';
+const EXHIBIT_PAD = 3;
+const EXHIBIT_EXT = '.mp4';
+const EXHIBIT_MAX = 999;
+const EXHIBIT_STOP_AFTER = 5;
+const IMG_PREFIX='Image', IMG_PAD=3, IMG_EXT='.jpeg', IMG_MAX=999, IMG_STOP_AFTER=5;
+const VID_PREFIX='Video', VID_PAD=3, VID_EXT='.mp4', VID_MAX=999, VID_STOP_AFTER=3;
+
+const zpad=(n,w)=>String(n).padStart(w,'0');
+const url=(p,n,w,e)=>BASE_URL+p+zpad(n,w)+e;
+
+function probeVideo(src, timeoutMs = 5000) {
+  return new Promise((resolve) => {
+    const video = document.createElement('video');
+    let resolved = false;
+    const cleanup = () => { if (!resolved) { resolved = true; resolve(false); } video.removeAttribute('src'); video.load(); };
+    const success = () => { if (!resolved) { resolved = true; resolve(true); cleanup(); } };
+    const fail = () => { if (!resolved) { resolved = true; resolve(false); cleanup(); } };
+    video.oncanplay = success;
+    video.onloadedmetadata = success;
+    video.onerror = fail;
+    setTimeout(() => { if (!resolved) fail(); }, timeoutMs);
+    video.preload = 'metadata';
+    video.src = src;
+    video.load();
+  });
+}
+function probeImage(src) { return new Promise(r => { let i = new Image(); i.onload = () => r(true); i.onerror = () => r(false); i.src = src; }); }
+async function scanSequential(prefix, padW, ext, maxN, stopAfter, probeFunc, onProgress) {
+  let found = [], consec = 0;
+  for (let i = 1; i <= maxN; i++) {
+    let u = url(prefix, i, padW, ext);
+    if (onProgress) onProgress(i, found.length);
+    let ok = await probeFunc(u);
+    if (ok) { found.push({ url: u, index: i }); consec = 0; } 
+    else if (++consec >= stopAfter) break;
+  }
+  return found;
+}
+
+function renderExhibitCarousel(videos) {
+  let wrap = document.getElementById('carouselWrap');
+  if (!videos.length) { wrap.innerHTML = '<div class="no-media">✨ No exhibit videos yet — upload Exhibit001.mp4, Exhibit002.mp4 ✨</div>'; return; }
+  let slides = videos.map(({ url: u, index: i }) => {
+    const formattedNum = zpad(i, EXHIBIT_PAD);
+    return `<div class="swiper-slide">
+      <div class="gallery-frame" onclick="openExhibitVideoLightbox('${u}', 'Exhibit ${formattedNum} — Turkish Art in Motion')">
+        <div class="frame-inner">
+          <video preload="metadata" muted playsinline poster="">
+            <source src="${u}#t=2" type="video/mp4">
+          </video>
+          <div class="video-play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <span class="art-badge">📽️ Exhibit ${formattedNum}</span>
+        </div>
+        <div class="slide-caption">◈ Video Exhibit ${formattedNum} ◈</div>
+        <div class="slide-meta"><span>Iznik Tradition</span><span>◆</span><span>Digital Atelier</span><span>◆</span><span>Turkish Motion Art</span></div>
+        <div class="slide-desc">Color & Soul · Cinematic Heritage</div>
+      </div>
+    </div>`;
+  }).join('');
+  wrap.innerHTML = `<div class="swiper mySwiper"><div class="swiper-wrapper">${slides}</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>`;
+  new Swiper('.mySwiper', { loop: videos.length > 1, speed: 800, spaceBetween: 24, centeredSlides: true, slidesPerView: 1, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 5500, disableOnInteraction: false } });
+  seekVideoThumbnails();
+}
+
+function openExhibitVideoLightbox(src, caption) {
+  const lbVideo = document.getElementById('lightboxExhibitVideo');
+  const lbCaption = document.getElementById('lightboxCaption');
+  lbVideo.src = src;
+  lbVideo.load();
+  lbVideo.play().catch(e => console.log('autoplay blocked', e));
+  lbCaption.innerText = caption;
+  document.getElementById('imgLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeImgLight(e) { if (e.target === document.getElementById('imgLightbox')) closeImgLightDirect(); }
+function closeImgLightDirect() { const v = document.getElementById('lightboxExhibitVideo'); if(v) { v.pause(); v.src = ''; } document.getElementById('imgLightbox').classList.remove('open'); document.body.style.overflow = ''; }
+function openVidLight(src, caption) { let lv = document.getElementById('lightboxVideo'); lv.src = src; lv.load(); lv.play().catch(()=>{}); document.getElementById('vidLightboxCaption').innerText = caption; document.getElementById('vidLightbox').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeVidLight(e) { if (e.target === document.getElementById('vidLightbox')) closeVidLightDirect(); }
+function closeVidLightDirect() { let v = document.getElementById('lightboxVideo'); if(v) { v.pause(); v.src = ''; } document.getElementById('vidLightbox').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeImgLightDirect(); closeVidLightDirect(); } });
+function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+
+function renderGrid(images) {
+  let wrap = document.getElementById('gridWrap');
+  if (!images.length) { wrap.innerHTML = '<div class="no-media">Collection awaiting masterpieces.</div>'; return; }
+  let cards = images.map(({ url: u, index: i }) => `<div class="craft-card" onclick="openImageModal('${u}','Turkish Art — ${zpad(i,IMG_PAD)}')"><div class="tile-corner"></div><img class="craft-card-img" src="${u}" loading="lazy"><div class="craft-card-body"><div class="craft-card-num">Artifact ${zpad(i,IMG_PAD)}</div><div class="craft-card-title">Renk ve Ruh · ${zpad(i,IMG_PAD)}</div></div></div>`).join('');
+  wrap.innerHTML = `<div class="collection-grid">${cards}</div>`;
+}
+function openImageModal(src, caption) {
+  let modal = document.getElementById('tempImageModal');
+  if (!modal) {
+    let div = document.createElement('div');
+    div.id = 'tempImageModal';
+    div.style.cssText = 'position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:400; display:flex; align-items:center; justify-content:center; cursor:pointer;';
+    div.innerHTML = '<img style="max-width:90%; max-height:90%; border-radius:16px; box-shadow:0 0 0 4px #c79a3e;" /><div style="position:absolute; bottom:20px; left:0; right:0; text-align:center; color:#f2e0bd; font-family:Raleway;"></div>';
+    document.body.appendChild(div);
+    modal = div;
+  }
+  modal.querySelector('img').src = src;
+  modal.querySelector('div:last-child').innerText = caption;
+  modal.style.display = 'flex';
+  modal.onclick = () => modal.style.display = 'none';
+}
+function renderVideos(videos) {
+  let wrap = document.getElementById('videoWrap');
+  if (!videos.length) { wrap.innerHTML = '<div class="no-media">🎬 Artisan films will appear here — upload Video001.mp4 etc.</div>'; return; }
+  let cards = videos.map(({ url: u, index: i }) => `<div class="video-frame-outer"><div class="video-inner"><video preload="metadata" playsinline id="vid_${i}"><source src="${u}#t=2" type="video/mp4"></video><div class="play-overlay" onclick="openVidLight('${u}','Artisan Film — Video ${zpad(i,VID_PAD)}')"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div><span class="video-badge-art">🎥 Video ${zpad(i,VID_PAD)}</span></div><div class="video-caption"><div class="v-title">Handcraft · ${zpad(i,VID_PAD)}</div><div class="v-meta">⚜️ Turkish Handmade Legacy ⚜️</div></div></div>`).join('');
+  wrap.innerHTML = `<div class="video-grid">${cards}</div>`;
+  seekVideoThumbnails();
+}
+
+function seekVideoThumbnails() {
+  document.querySelectorAll('video[preload="metadata"]').forEach(v => {
+    v.addEventListener('loadedmetadata', () => {
+      v.currentTime = Math.min(2, v.duration * 0.1);
+    }, { once: true });
+  });
+}
+
+(async () => {
+  const exhibitStatus = document.getElementById('scanStatus');
+  const exhibitVideos = await scanSequential(EXHIBIT_PREFIX, EXHIBIT_PAD, EXHIBIT_EXT, EXHIBIT_MAX, EXHIBIT_STOP_AFTER, probeVideo, (c,f)=> exhibitStatus.textContent = `scanning exhibits: ${c} checked · ${f} found`);
+  exhibitStatus.textContent = exhibitVideos.length ? `✦ ${exhibitVideos.length} video exhibits` : 'upload Exhibit001.mp4, Exhibit002.mp4 …';
+  renderExhibitCarousel(exhibitVideos);
+  const images = await scanSequential(IMG_PREFIX, IMG_PAD, IMG_EXT, IMG_MAX, IMG_STOP_AFTER, probeImage);
+  renderGrid(images);
+  const vidStatus = document.getElementById('videoScanStatus');
+  const craftVideos = await scanSequential(VID_PREFIX, VID_PAD, VID_EXT, VID_MAX, VID_STOP_AFTER, probeVideo, (c,f)=> vidStatus.textContent = `scanning craft: ${c} checked · ${f} films`);
+  vidStatus.textContent = craftVideos.length ? `🎬 ${craftVideos.length} artisan films` : 'no craft films yet';
+  renderVideos(craftVideos);
+})();
+</script>
+</body>
+</html>

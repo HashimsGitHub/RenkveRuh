@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Renk ve Ruh — Color & Soul</title>
+  <meta name="description" content="Renk ve Ruh — Color and Soul. A curated gallery of Turkish handmade home crafts; each piece woven with centuries of Anatolian artistry.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel+Decorative:wght@400;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    :root {
+      --gold:        #d4a843;
+      --gold-light:  #f0cf7a;
+      --gold-dark:   #8b6508;
+      --deep:        #0c0703;
+      --cream:       #f7ecd4;
+      --terracotta:  #c2583c;
+      --tile-blue:   #2e6e8e;
+      --border:      rgba(212,168,67,0.45);
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: radial-gradient(ellipse at 15% 20%, #150a02, #070401 60%, #0c0703);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: var(--gold);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Fixed gold border frame */
+    body::before {
+      content:"";
+      position:fixed; inset:16px;
+      border:1px solid var(--border); border-radius:2px;
+      pointer-events:none; z-index:100;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.6), inset 0 0 30px rgba(212,168,67,0.07);
+    }
+
+    /* Arabesque tile overlay */
+    .bg-pattern {
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120' opacity='0.038'%3E%3Cpath fill='none' stroke='%23d4a843' stroke-width='0.6' d='M60 5 L115 60 L60 115 L5 60 Z'/%3E%3Ccircle cx='60' cy='60' r='25' fill='none' stroke='%23d4a843' stroke-width='0.5'/%3E%3Cpath fill='none' stroke='%23d4a843' stroke-width='0.4' d='M60 5 L60 35 M60 85 L60 115 M5 60 L35 60 M85 60 L115 60'/%3E%3Cpath fill='none' stroke='%23d4a843' stroke-width='0.35' d='M20 20 L40 40 M80 20 L100 40 M20 100 L40 80 M80 100 L100 80'/%3E%3Ccircle cx='60' cy='60' r='8' fill='none' stroke='%23d4a843' stroke-width='0.5'/%3E%3C/svg%3E");
+      background-size:90px 90px;
+      pointer-events:none; z-index:0;
+    }
+
+    .page {
+      position:relative; z-index:2;
+      max-width:1440px; margin:0 auto;
+      padding:0 1.5rem 5rem;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:1.4rem 2rem 1rem;
+      border-bottom:1px solid var(--border);
+      position:sticky; top:0; z-index:50;
+      background:rgba(12,7,3,0.92); backdrop-filter:blur(12px);
+    }
+    .nav-brand {
+      font-family:'Cinzel Decorative',serif; font-size:1.1rem;
+      letter-spacing:3px; color:var(--gold-light);
+      text-shadow:0 0 12px var(--gold-dark);
+    }
+    .nav-links { display:flex; gap:2.2rem; list-style:none; }
+    .nav-links a {
+      color:var(--gold); text-decoration:none;
+      font-family:'Raleway',sans-serif; font-size:0.78rem;
+      letter-spacing:2.5px; text-transform:uppercase;
+      opacity:0.8; transition:opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity:1; color:var(--gold-light); }
+    .nav-menu-btn {
+      display:none; background:none; border:1px solid var(--border);
+      color:var(--gold); padding:0.35rem 0.7rem;
+      font-size:1.1rem; cursor:pointer; border-radius:3px;
+    }
+
+    /* ── ORNAMENT ── */
+    .ornament {
+      display:flex; align-items:center; justify-content:center;
+      gap:14px; margin:0.9rem 0;
+    }
+    .ornament .line {
+      height:1px; width:80px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent);
+    }
+    .ornament .diamond {
+      width:7px; height:7px; background:var(--gold);
+      transform:rotate(45deg); box-shadow:0 0 8px gold;
+    }
+
+    /* ── HERO ── */
+    .hero { text-align:center; padding:4rem 1rem 3rem; }
+    .hero-subtitle-top {
+      font-family:'Raleway',sans-serif; font-size:0.75rem;
+      letter-spacing:5px; text-transform:uppercase;
+      color:var(--gold-light); opacity:0.7;
+    }
+    .hero h1 {
+      font-family:'Cinzel Decorative',serif;
+      font-size:clamp(2.4rem,6vw,4.4rem);
+      font-weight:700; letter-spacing:5px; color:var(--gold-light);
+      text-shadow:0 0 10px var(--gold-dark),0 0 30px rgba(212,168,67,0.3);
+      line-height:1.1; margin:0.4rem 0 0.2rem;
+    }
+    .hero h1 .amp { color:var(--terracotta); font-style:italic; font-size:0.85em; }
+    .hero h2 {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.1rem,2.5vw,1.7rem); font-weight:300;
+      letter-spacing:6px; color:var(--cream); opacity:0.6;
+      text-transform:uppercase; margin-bottom:0.6rem;
+    }
+    .hero-tagline {
+      font-size:1.05rem; font-style:italic;
+      color:var(--gold-light); opacity:0.75; letter-spacing:1px;
+    }
+
+    /* ── SECTION HEADER ── */
+    .section-header { text-align:center; margin:3.5rem 0 2rem; }
+    .section-header h3 {
+      font-family:'Cinzel Decorative',serif;
+      font-size:clamp(1rem,2.5vw,1.45rem);
+      letter-spacing:4px; color:var(--gold-light);
+      font-weight:400; text-shadow:0 2px 8px var(--gold-dark);
+    }
+    .section-header p {
+      font-size:1rem; font-style:italic;
+      color:var(--gold); opacity:0.65;
+      margin-top:0.4rem; letter-spacing:1px;
+    }
+
+    /* ── LOADING / EMPTY ── */
+    .loading-state {
+      text-align:center; padding:3rem 1rem;
+      font-family:'Raleway',sans-serif; font-size:0.78rem;
+      letter-spacing:3px; text-transform:uppercase;
+      color:var(--gold); opacity:0.5;
+    }
+    @keyframes dots {
+      0%  { content:'.'; } 33% { content:'..'; } 66% { content:'...'; }
+    }
+    .loading-dots::after { content:'.'; animation:dots 1.4s infinite; }
+    .no-media {
+      text-align:center; padding:2.5rem 1rem;
+      font-style:italic; color:var(--gold); opacity:0.38; font-size:0.95rem;
+    }
+
+    /* ── SCAN STATUS ── */
+    #scanStatus {
+      text-align:center;
+      font-family:'Raleway',sans-serif; font-size:0.7rem;
+      letter-spacing:2px; text-transform:uppercase;
+      color:var(--gold); opacity:0.5; margin-bottom:0.5rem; min-height:1.2rem;
+    }
+
+    /* ── CAROUSEL ── */
+    .carousel-section { margin:1rem 0 2rem; padding:0 0.5rem; }
+    .swiper { width:100%; padding:16px 0 44px !important; }
+
+    .gold-frame {
+      background:linear-gradient(145deg,#b8892a,#f5dc7a,#a06c20,#e8c872,#b8892a);
+      padding:16px; border-radius:28px 8px 28px 8px;
+      box-shadow:0 28px 45px -10px rgba(0,0,0,0.85),inset 0 1px 5px rgba(255,230,140,0.5);
+      max-width:880px; width:100%; margin:0 auto;
+      transition:transform 0.35s ease, box-shadow 0.35s ease; cursor:pointer;
+    }
+    .gold-frame:hover {
+      transform:translateY(-4px);
+      box-shadow:0 38px 55px -10px rgba(0,0,0,0.9),0 0 40px rgba(212,168,67,0.2);
+    }
+    .frame-inner {
+      border-radius:18px 2px 18px 2px; overflow:hidden;
+      background:#120a02; position:relative;
+    }
+    .frame-inner img {
+      width:100%; height:auto; display:block;
+      transition:transform 0.45s ease;
+    }
+    .gold-frame:hover .frame-inner img { transform:scale(1.025); }
+    .frame-badge {
+      position:absolute; top:14px; right:14px;
+      background:rgba(12,7,3,0.75); border:1px solid var(--border);
+      color:var(--gold-light); font-family:'Raleway',sans-serif;
+      font-size:0.65rem; letter-spacing:2px; text-transform:uppercase;
+      padding:0.25rem 0.65rem; border-radius:20px; backdrop-filter:blur(6px);
+    }
+    .slide-caption {
+      text-align:center; margin-top:1.1rem; font-size:1.25rem;
+      color:#f0e0b0; letter-spacing:1px; font-weight:500;
+    }
+    .slide-meta {
+      display:flex; justify-content:center; gap:1.5rem;
+      margin-top:0.5rem; flex-wrap:wrap;
+    }
+    .slide-meta span {
+      font-family:'Raleway',sans-serif; font-size:0.72rem;
+      letter-spacing:2px; text-transform:uppercase; color:#000000; opacity:0.6;
+    }
+    .slide-meta .dot { opacity:0.35; }
+    .slide-desc {
+      text-align:center; font-size:0.92rem; font-style:italic;
+      color:#000000; margin-top:0.35rem; padding:0 1rem 0.5rem; opacity:0.85;
+    }
+
+    /* Swiper nav */
+    .swiper-button-next,.swiper-button-prev {
+      color:var(--gold); background:rgba(0,0,0,0.55);
+      width:48px; height:48px; border-radius:50%;
+      backdrop-filter:blur(6px); transition:0.2s;
+    }
+    .swiper-button-next:after,.swiper-button-prev:after { font-size:22px; font-weight:bold; }
+    .swiper-button-next:hover,.swiper-button-prev:hover {
+      background:rgba(212,168,67,0.25); color:var(--gold-light);
+    }
+    .swiper-pagination-bullet { background:#b89040; opacity:0.55; }
+    .swiper-pagination-bullet-active { background:var(--gold-light); box-shadow:0 0 10px gold; opacity:1; }
+
+    /* ── COLLECTION GRID ── */
+    .collection-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+      gap:1.6rem; margin-top:1rem;
+    }
+    .craft-card {
+      background:linear-gradient(160deg,#1a0f04,#0e0802);
+      border:1px solid rgba(212,168,67,0.22); border-radius:12px 3px 12px 3px;
+      overflow:hidden; transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor:pointer; position:relative;
+    }
+    .craft-card:hover {
+      transform:translateY(-6px);
+      border-color:rgba(212,168,67,0.6);
+      box-shadow:0 20px 40px rgba(0,0,0,0.7),0 0 20px rgba(212,168,67,0.1);
+    }
+    .craft-card-img {
+      width:100%; aspect-ratio:4/3; object-fit:cover; display:block;
+      transition:transform 0.4s ease;
+    }
+    .craft-card:hover .craft-card-img { transform:scale(1.04); }
+    .craft-card-body { padding:0.85rem 1rem 1rem; }
+    .craft-card-num {
+      font-family:'Raleway',sans-serif; font-size:0.65rem;
+      letter-spacing:3px; text-transform:uppercase;
+      color:var(--terracotta); margin-bottom:0.2rem;
+    }
+    .craft-card-title { font-size:1.1rem; font-weight:500; color:var(--gold-light); }
+    .craft-card-corner {
+      position:absolute; top:0; right:0; width:0; height:0; border-style:solid;
+      border-width:0 28px 28px 0; border-color:transparent var(--gold-dark) transparent transparent;
+      opacity:0.6;
+    }
+
+    /* ── VIDEO SECTION ── */
+    .video-grid {
+      display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:2rem; margin-top:1rem;
+    }
+
+    /* Gold frame wrapping the video card */
+    .video-gold-frame {
+      background:linear-gradient(145deg,#b8892a,#f5dc7a,#a06c20,#e8c872,#b8892a);
+      padding:14px; border-radius:24px 7px 24px 7px;
+      box-shadow:0 22px 40px -10px rgba(0,0,0,0.85), inset 0 1px 4px rgba(255,230,140,0.45);
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-gold-frame:hover {
+      transform:translateY(-5px);
+      box-shadow:0 32px 50px -10px rgba(0,0,0,0.9), 0 0 30px rgba(212,168,67,0.18);
+    }
+
+    /* Inner dark panel */
+    .video-frame-inner {
+      border-radius:16px 2px 16px 2px; overflow:hidden;
+      background:#060302; position:relative;
+    }
+
+    /* The actual <video> element */
+    .video-frame-inner video {
+      width:100%; display:block;
+      aspect-ratio:16/9; object-fit:cover;
+      cursor:pointer;
+    }
+
+    /* Play button overlay */
+    .video-play-overlay {
+      position:absolute; inset:0;
+      display:flex; align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.38);
+      transition:background 0.25s;
+      cursor:pointer;
+      border-radius:inherit;
+    }
+    .video-play-overlay:hover { background:rgba(0,0,0,0.18); }
+    .video-play-overlay.hidden { display:none; }
+
+    .play-btn-circle {
+      width:64px; height:64px; border-radius:50%;
+      background:rgba(212,168,67,0.2);
+      border:2px solid var(--gold-light);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform 0.2s, background 0.2s;
+      backdrop-filter:blur(4px);
+    }
+    .video-play-overlay:hover .play-btn-circle {
+      transform:scale(1.12); background:rgba(212,168,67,0.38);
+    }
+    .play-btn-circle svg { width:26px; height:26px; margin-left:4px; }
+
+    /* Video number badge */
+    .video-badge {
+      position:absolute; top:12px; left:12px;
+      background:rgba(12,7,3,0.78); border:1px solid var(--border);
+      color:var(--gold-light); font-family:'Raleway',sans-serif;
+      font-size:0.62rem; letter-spacing:2px; text-transform:uppercase;
+      padding:0.22rem 0.6rem; border-radius:20px; backdrop-filter:blur(6px);
+    }
+
+    /* Caption below the video */
+    .video-caption {
+      text-align:center; padding:0.9rem 0.4rem 0.3rem;
+    }
+    .video-caption .v-title {
+      font-size:1.15rem; color:#f0e0b0; letter-spacing:0.5px; font-weight:500;
+    }
+    .video-caption .v-meta {
+      font-family:'Raleway',sans-serif; font-size:0.65rem;
+      letter-spacing:2px; text-transform:uppercase;
+      color:#000000; margin-top:0.25rem; opacity:0.85;
+    }
+
+    /* ── VIDEO LIGHTBOX ── */
+    .vlightbox-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.96); z-index:300;
+      align-items:center; justify-content:center; padding:2rem;
+    }
+    .vlightbox-overlay.open { display:flex; flex-direction:column; }
+    .vlightbox-content {
+      position:relative; max-width:960px; width:100%;
+      background:linear-gradient(145deg,#aa7a22,#e8c060,#9a6c18,#d4aa48);
+      padding:14px; border-radius:24px 6px 24px 6px;
+      box-shadow:0 40px 80px rgba(0,0,0,0.95);
+    }
+    .vlightbox-content video {
+      width:100%; display:block;
+      border-radius:16px 2px 16px 2px; max-height:75vh; background:#000;
+    }
+    .vlightbox-caption {
+      text-align:center; margin-top:0.85rem;
+      font-size:1.1rem; color:#f0e0b0; letter-spacing:0.5px;
+    }
+    .vlightbox-close {
+      position:absolute; top:-14px; right:-14px;
+      width:38px; height:38px; background:var(--deep);
+      border:1px solid var(--gold); color:var(--gold);
+      border-radius:50%; font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition:background 0.2s; z-index:10;
+    }
+    .vlightbox-close:hover { background:rgba(212,168,67,0.2); }
+
+    /* ── IMAGE LIGHTBOX ── */
+    .lightbox-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,0.93); z-index:200;
+      align-items:center; justify-content:center; padding:2rem;
+    }
+    .lightbox-overlay.open { display:flex; }
+    .lightbox-content {
+      position:relative; max-width:900px; width:100%;
+      background:linear-gradient(145deg,#aa7a22,#e8c060,#9a6c18,#d4aa48);
+      padding:14px; border-radius:24px 6px 24px 6px;
+      box-shadow:0 40px 80px rgba(0,0,0,0.95);
+    }
+    .lightbox-content img { width:100%; height:auto; border-radius:16px 2px 16px 2px; display:block; }
+    .lightbox-caption { text-align:center; margin-top:0.9rem; font-size:1.1rem; color:#f0e0b0; }
+    .lightbox-close {
+      position:absolute; top:-14px; right:-14px;
+      width:38px; height:38px; background:var(--deep);
+      border:1px solid var(--gold); color:var(--gold);
+      border-radius:50%; font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; transition:background 0.2s;
+    }
+    .lightbox-close:hover { background:rgba(212,168,67,0.2); }
+
+    /* ── ABOUT ── */
+    .legacy-note {
+      text-align:center; margin:4rem 1rem 0; padding:1.6rem 2rem;
+      background:rgba(0,0,0,0.3); border-radius:60px;
+      border-left:2px solid var(--gold); border-right:2px solid var(--gold);
+    }
+    .legacy-note p { font-size:1.05rem; color:#e0c878; line-height:1.75; font-style:italic; }
+    .legacy-note p + p { margin-top:0.6rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      margin-top:4rem; border-top:1px solid rgba(212,168,67,0.35);
+      padding:1.5rem 1rem; text-align:center;
+      display:flex; flex-wrap:wrap; justify-content:center; gap:1.5rem;
+      font-family:'Raleway',sans-serif; font-size:0.75rem;
+      letter-spacing:1.5px; color:#9a7c3a;
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width:768px) {
+      nav { padding:1rem 1.2rem; }
+      .nav-links { display:none; }
+      .nav-menu-btn { display:block; }
+      .nav-links.open {
+        display:flex; flex-direction:column;
+        position:absolute; top:100%; left:0; right:0;
+        background:rgba(12,7,3,0.97); padding:1.2rem;
+        border-bottom:1px solid var(--border); gap:1rem;
+      }
+      .hero { padding:2.5rem 0.5rem 2rem; }
+      .swiper-button-next,.swiper-button-prev { width:34px; height:34px; }
+      .swiper-button-next:after,.swiper-button-prev:after { font-size:16px; }
+      body::before { inset:8px; }
+      .video-grid { grid-template-columns:1fr; }
+      .play-btn-circle { width:52px; height:52px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Renk ve Ruh</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#featured">Featured</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#craft-stories">Craft Stories</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-menu-btn" onclick="toggleNav()" aria-label="Menu">☰</button>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="ornament">
+      <div class="diamond"></div>
+      <div class="line" style="width:100px"></div>
+      <span style="font-size:1.3rem">✦</span>
+      <div class="line" style="width:100px"></div>
+      <div class="diamond"></div>
+    </div>
+    <p class="hero-subtitle-top">Handmade Anatolian Home Crafts</p>
+    <h1>Renk <span class="amp">ve</span> Ruh</h1>
+    <h2>Uzma Khan</h2>
+    <div class="ornament" style="margin:0.7rem 0">
+      <div class="line" style="width:60px"></div>
+      <span style="font-size:1.4rem">⚜️</span>
+      <div class="line" style="width:60px"></div>
+    </div>
+    <p class="hero-tagline">Where centuries of Anatolian artistry live in every stitch, glaze, and thread.</p>
+  </header>
+
+  <!-- FEATURED CAROUSEL -->
+  <section id="featured" class="carousel-section">
+    <div class="section-header">
+      <div class="ornament">
+        <div class="diamond"></div>
+        <div class="line" style="width:50px"></div>
+        <h3>◈ &nbsp; FEATURED WORKS &nbsp; ◈</h3>
+        <div class="line" style="width:50px"></div>
+        <div class="diamond"></div>
+      </div>
+      <p>Curated masterpieces of Turkish handcraft</p>
+    </div>
+    <div id="scanStatus"></div>
+    <div id="carouselWrap">
+      <div class="loading-state"><span class="loading-dots">Discovering gallery images</span></div>
+    </div>
+  </section>
+
+  <!-- COLLECTIONS GRID -->
+  <section id="collections">
+    <div class="section-header">
+      <div class="ornament">
+        <div class="diamond"></div>
+        <div class="line" style="width:50px"></div>
+        <h3>◈ &nbsp; THE COLLECTION &nbsp; ◈</h3>
+        <div class="line" style="width:50px"></div>
+        <div class="diamond"></div>
+      </div>
+      <p>Every piece from the gallery</p>
+    </div>
+    <div id="gridWrap">
+      <div class="loading-state"><span class="loading-dots">Loading collection</span></div>
+    </div>
+  </section>
+
+  <!-- CRAFT STORIES — VIDEO -->
+  <section id="craft-stories">
+    <div class="section-header">
+      <div class="ornament">
+        <div class="diamond"></div>
+        <div class="line" style="width:50px"></div>
+        <h3>◈ &nbsp; CRAFT STORIES &nbsp; ◈</h3>
+        <div class="line" style="width:50px"></div>
+        <div class="diamond"></div>
+      </div>
+      <p>Watch the artisans at work</p>
+    </div>
+    <div id="videoScanStatus" style="text-align:center;font-family:'Raleway',sans-serif;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);opacity:0.5;margin-bottom:0.5rem;min-height:1.2rem;"></div>
+    <div id="videoWrap">
+      <div class="loading-state"><span class="loading-dots">Scanning for videos</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div id="about" class="legacy-note">
+    <div class="ornament" style="margin:0 0 1rem">
+      <div class="diamond"></div>
+      <div class="line" style="width:60px"></div>
+      <span style="font-size:1.1rem">⚜️ &nbsp; RENK VE RUH by UZMA Khan &nbsp; ⚜️</span>
+      <div class="line" style="width:60px"></div>
+      <div class="diamond"></div>
+    </div>
+    <p>Renk ve Ruh — Color and Soul — is a living archive of Turkey's handmade home-craft traditions. Each piece in our gallery is the work of a named artisan, rooted in a specific village, city, or mountain community, carrying forward a lineage of skill that stretches back centuries.</p>
+    <p>From the cobalt kilns of İznik to the silent looms of the Taurus highlands; from the marbling trays of Istanbul to the coppersmith lanes of Gaziantep — we seek the makers whose hands hold a culture's memory, and bring their work into homes that honour it.</p>
+  </div>
+
+  <footer>
+    <div><span>🎨</span> &nbsp; Uzma Khan</div>
+    <div><span>⚜️</span> &nbsp; Turkish Handmade Home Crafts &nbsp; <span>⚜️</span></div>
+    <div><span>📜</span> &nbsp; Copyright · 2026 © · Renk ve Ruh</div>
+  </footer>
+
+</div><!-- /.page -->
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lightbox-overlay" id="imgLightbox" onclick="closeImgLight(event)">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeImgLightDirect()">✕</button>
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<!-- VIDEO LIGHTBOX -->
+<div class="vlightbox-overlay" id="vidLightbox" onclick="closeVidLight(event)">
+  <div class="vlightbox-content">
+    <button class="vlightbox-close" onclick="closeVidLightDirect()">✕</button>
+    <video id="lightboxVideo" controls playsinline></video>
+    <div class="vlightbox-caption" id="vidLightboxCaption"></div>
+  </div>
+</div>
+
+<!-- Swiper -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════
+// CONFIGURATION
+// ═══════════════════════════════════════════════
+const BASE_URL = 'https://smbclouddrive.blob.core.windows.net/renk-ve-ruh/';
+
+const IMG_PREFIX     = 'Image';
+const IMG_PAD        = 3;          // Image001, Image002 …
+const IMG_EXT        = '.jpeg';
+const IMG_MAX        = 999;        // scan up to this number
+const IMG_STOP_AFTER = 5;          // bail after 5 consecutive misses
+
+const VID_PREFIX     = 'Video';
+const VID_PAD        = 3;          // Video001, Video002 …
+const VID_EXT        = '.mp4';
+const VID_MAX        = 999;
+const VID_STOP_AFTER = 3;          // bail after 3 consecutive misses
+
+// ═══════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════
+const zpad = (n, w) => String(n).padStart(w, '0');
+const url  = (prefix, n, pad, ext) => BASE_URL + prefix + zpad(n, pad) + ext;
+
+// Probe an image URL — resolves true/false using <img> onload/onerror
+function probeImage(src) {
+  return new Promise(resolve => {
+    const img = new Image();
+    img.onload  = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = src;
+  });
+}
+
+// Probe a video URL — uses <video> canplay / error events with a timeout guard
+// Azure Blob returns partial content (206) for Range requests, which browsers
+// use for video metadata — this is the most reliable cross-origin method.
+function probeVideo(src) {
+  return new Promise(resolve => {
+    const v = document.createElement('video');
+    let done = false;
+    const finish = (result) => { if (!done) { done = true; resolve(result); } };
+
+    v.oncanplay        = () => finish(true);   // metadata + first frame ready
+    v.onloadedmetadata = () => finish(true);   // metadata loaded
+    v.onerror          = () => finish(false);  // 404 / format error / blocked
+
+    // Timeout — if the server never responds (e.g. end of sequence), stop waiting
+    const timer = setTimeout(() => finish(false), 8000);
+    v.oncanplay = v.onloadedmetadata = (e) => { clearTimeout(timer); finish(true); };
+    v.onerror   = ()                  => { clearTimeout(timer); finish(false); };
+
+    v.preload = 'metadata';
+    v.src = src;
+    v.load();
+  });
+}
+
+// Generic scanner — calls probeFunc sequentially, stops after stopAfter misses
+async function scanSequential(prefix, padW, ext, maxN, stopAfter, probeFunc, onProgress) {
+  const found = [];
+  let consecutive = 0;
+
+  for (let i = 1; i <= maxN; i++) {
+    const u = url(prefix, i, padW, ext);
+    if (onProgress) onProgress(i, found.length);
+
+    const ok = await probeFunc(u);
+    if (ok) {
+      found.push({ url: u, index: i });
+      consecutive = 0;
+    } else {
+      consecutive++;
+      if (consecutive >= stopAfter) break;
+    }
+  }
+  return found;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER — CAROUSEL
+// ═══════════════════════════════════════════════
+function renderCarousel(images) {
+  const wrap = document.getElementById('carouselWrap');
+  if (!images.length) {
+    wrap.innerHTML = '<div class="no-media">No images found — upload Image001.jpeg, Image002.jpeg … to display them here.</div>';
+    return;
+  }
+
+  const slides = images.map(({ url: u, index: i }) => `
+    <div class="swiper-slide">
+      <div class="gold-frame" onclick="openImgLight('${u}','Image ${zpad(i,IMG_PAD)}')">
+        <div class="frame-inner">
+          <img src="${u}" alt="Renk ve Ruh — Image ${zpad(i,IMG_PAD)}" loading="lazy">
+          <span class="frame-badge">${zpad(i,IMG_PAD)}</span>
+        </div>
+        <div class="slide-caption">◈ &nbsp; Renk ve Ruh — Image ${zpad(i,IMG_PAD)} &nbsp; ◈</div>
+        <div class="slide-meta">
+          <span>Handmade Craft</span><span class="dot">◆</span>
+          <span>Anatolian Tradition</span><span class="dot">◆</span>
+          <span>Turkish Artisan</span>
+        </div>
+        <div class="slide-desc">Each handcrafted piece carries the color and soul of its maker — a living thread connecting Anatolia's past to your home.</div>
+      </div>
+    </div>`).join('');
+
+  wrap.innerHTML = `
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">${slides}</div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>`;
+
+  new Swiper('.mySwiper', {
+    loop: images.length > 1, speed: 850, spaceBetween: 30,
+    centeredSlides: true, slidesPerView: 1, grabCursor: true,
+    navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+    pagination: { el: '.swiper-pagination', clickable: true, dynamicBullets: true },
+    autoplay: { delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true },
+    keyboard: { enabled: true },
+  });
+}
+
+// ═══════════════════════════════════════════════
+// RENDER — GRID
+// ═══════════════════════════════════════════════
+function renderGrid(images) {
+  const wrap = document.getElementById('gridWrap');
+  if (!images.length) {
+    wrap.innerHTML = '<div class="no-media">No images found in container.</div>';
+    return;
+  }
+
+  const cards = images.map(({ url: u, index: i }) => `
+    <div class="craft-card" onclick="openImgLight('${u}','Image ${zpad(i,IMG_PAD)}')">
+      <div class="craft-card-corner"></div>
+      <img class="craft-card-img" src="${u}" alt="Image ${zpad(i,IMG_PAD)}" loading="lazy">
+      <div class="craft-card-body">
+        <div class="craft-card-num">Piece ${zpad(i,IMG_PAD)}</div>
+        <div class="craft-card-title">Renk ve Ruh &nbsp;—&nbsp; ${zpad(i,IMG_PAD)}</div>
+      </div>
+    </div>`).join('');
+
+  wrap.innerHTML = `<div class="collection-grid">${cards}</div>`;
+}
+
+// ═══════════════════════════════════════════════
+// RENDER — VIDEOS
+// ═══════════════════════════════════════════════
+function renderVideos(videos) {
+  const wrap = document.getElementById('videoWrap');
+
+  if (!videos.length) {
+    wrap.innerHTML = '<div class="no-media">No videos found — upload Video001.mp4, Video002.mp4 … to display them here.</div>';
+    return;
+  }
+
+  const cards = videos.map(({ url: u, index: i }) => `
+    <div class="video-gold-frame">
+      <div class="video-frame-inner">
+
+        <!-- Actual video element — loads metadata only -->
+        <video preload="metadata" playsinline id="vid_${i}">
+          <source src="${u}" type="video/mp4">
+        </video>
+
+        <!-- Play overlay — clicking opens the lightbox -->
+        <div class="video-play-overlay" id="overlay_${i}" onclick="openVidLight('${u}','Craft Story — Video ${zpad(i,VID_PAD)}', ${i})">
+          <div class="play-btn-circle">
+            <svg viewBox="0 0 24 24" fill="var(--gold-light)" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="6,3 20,12 6,21"/>
+            </svg>
+          </div>
+        </div>
+
+        <span class="video-badge">Video ${zpad(i,VID_PAD)}</span>
+      </div>
+      <div class="video-caption">
+        <div class="v-title">Craft Story &nbsp;—&nbsp; ${zpad(i,VID_PAD)}</div>
+        <div class="v-meta">⚜️ &nbsp; Turkish Handcraft &nbsp; ⚜️</div>
+      </div>
+    </div>`).join('');
+
+  wrap.innerHTML = `<div class="video-grid">${cards}</div>`;
+}
+
+// ═══════════════════════════════════════════════
+// IMAGE LIGHTBOX
+// ═══════════════════════════════════════════════
+function openImgLight(src, caption) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxCaption').textContent = caption;
+  document.getElementById('imgLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeImgLight(e) {
+  if (e.target === document.getElementById('imgLightbox')) closeImgLightDirect();
+}
+function closeImgLightDirect() {
+  document.getElementById('imgLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════
+// VIDEO LIGHTBOX
+// ═══════════════════════════════════════════════
+function openVidLight(src, caption) {
+  const lv = document.getElementById('lightboxVideo');
+  lv.src = src;
+  lv.load();
+  lv.play().catch(() => {});  // auto-play in lightbox
+  document.getElementById('vidLightboxCaption').textContent = caption;
+  document.getElementById('vidLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVidLight(e) {
+  if (e.target === document.getElementById('vidLightbox')) closeVidLightDirect();
+}
+function closeVidLightDirect() {
+  const lv = document.getElementById('lightboxVideo');
+  lv.pause(); lv.src = '';
+  document.getElementById('vidLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════
+// KEYBOARD
+// ═══════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeImgLightDirect(); closeVidLightDirect(); }
+});
+
+// ═══════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════
+// MAIN — scan images then videos in parallel
+// ═══════════════════════════════════════════════
+(async () => {
+  const imgStatus = document.getElementById('scanStatus');
+  const vidStatus = document.getElementById('videoScanStatus');
+
+  // ── Images ──────────────────────────────────
+  imgStatus.textContent = 'Scanning container for images…';
+  const images = await scanSequential(
+    IMG_PREFIX, IMG_PAD, IMG_EXT, IMG_MAX, IMG_STOP_AFTER,
+    probeImage,
+    (checked, found) => {
+      imgStatus.textContent = `Scanning images… checked ${checked} · found ${found}`;
+    }
+  );
+  imgStatus.textContent = images.length
+    ? `✦ ${images.length} image${images.length !== 1 ? 's' : ''} discovered`
+    : 'No images found in container';
+
+  renderCarousel(images);
+  renderGrid(images);
+
+  // ── Videos ──────────────────────────────────
+  vidStatus.textContent = 'Scanning container for videos…';
+  const videos = await scanSequential(
+    VID_PREFIX, VID_PAD, VID_EXT, VID_MAX, VID_STOP_AFTER,
+    probeVideo,
+    (checked, found) => {
+      vidStatus.textContent = `Scanning videos… checked ${checked} · found ${found}`;
+    }
+  );
+  vidStatus.textContent = videos.length
+    ? `✦ ${videos.length} video${videos.length !== 1 ? 's' : ''} discovered`
+    : 'No videos found in container';
+
+  renderVideos(videos);
+})();
+</script>
+</body>
+</html>
