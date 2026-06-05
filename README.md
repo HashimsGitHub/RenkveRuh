@@ -1,7 +1,7 @@
 # Renk ve Ruh
 
 Website: 
-<img width="1950" height="1863" alt="QR_Code" src="https://github.com/user-attachments/assets/99d73bd0-f444-4805-94c0-8e1f7a6a8eb9" />
+<img width="200" height="200" alt="QR_Code" src="https://github.com/user-attachments/assets/99d73bd0-f444-4805-94c0-8e1f7a6a8eb9" />
 
 Renklerin ruhla buluştuğu yer | Where colors meet the soul
 
