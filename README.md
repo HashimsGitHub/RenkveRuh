@@ -3,7 +3,7 @@ Renklerin ruhla buluştuğu yer | Where colors meet the soul
 
 --
 <img width="400" height="400" alt="QR_Code" src="https://github.com/user-attachments/assets/99d73bd0-f444-4805-94c0-8e1f7a6a8eb9" />
---
+
 
 # ⚜️ OUR STORY ⚜️
 Renk ve Ruh means “Colors and Soul.” It reflects our belief that every artwork should carry both beauty and emotion. Inspired by nature, creativity, and handcrafted artistry, we create unique pieces that add warmth, character, and a personal touch to your home.
