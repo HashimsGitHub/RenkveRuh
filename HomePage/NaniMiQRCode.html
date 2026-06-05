@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Renk ve Ruh — Artistic QR Code</title>
+  <meta name="description" content="Share the soul of Turkish art — Scan to visit Renk ve Ruh gallery">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #fef4e8 0%, #faf0e0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* Subtle pattern overlay matching the gallery theme */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle at 20% 40%, rgba(199,154,62,0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 20px;
+      border: 1px solid rgba(199,154,62,0.4);
+      border-radius: 3px;
+      pointer-events: none;
+      z-index: 100;
+      box-shadow: 0 0 0 1px rgba(199,154,62,0.1), inset 0 0 56px rgba(199,154,62,0.04);
+    }
+
+    /* Main artistic frame container */
+    .qr-art-frame {
+      position: relative;
+      z-index: 10;
+      max-width: 650px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* Ornate outer frame — inspired by Iznik tile borders */
+    .frame-outer {
+      background: linear-gradient(135deg, #dcb067, #f8e5be, #cfa352, #eeddae, #c2903c);
+      padding: 18px 20px 20px 18px;
+      border-radius: 48px 20px 48px 20px;
+      box-shadow: 0 28px 42px -14px rgba(70, 45, 20, 0.35), inset 0 1px 6px rgba(255,245,200,0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .frame-outer:hover {
+      transform: translateY(-4px);
+    }
+
+    /* Middle decorative band (tile-inspired) */
+    .frame-middle {
+      background: #fef0df;
+      padding: 12px;
+      border-radius: 38px 14px 38px 14px;
+      border: 1px solid rgba(199,154,62,0.5);
+      box-shadow: inset 0 0 0 2px rgba(199,154,62,0.2), 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Inner frame that holds the QR code */
+    .frame-inner {
+      background: #fffaf3;
+      padding: 24px;
+      border-radius: 32px 8px 32px 8px;
+      text-align: center;
+      position: relative;
+      border: 1px solid rgba(199,154,62,0.3);
+    }
+
+    /* Corner ornaments — Turkish motif */
+    .corner-ornament {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      pointer-events: none;
+    }
+
+    .corner-tl {
+      top: 8px;
+      left: 8px;
+      border-top: 3px solid #c79a3e;
+      border-left: 3px solid #c79a3e;
+      border-radius: 12px 0 0 0;
+    }
+
+    .corner-tr {
+      top: 8px;
+      right: 8px;
+      border-top: 3px solid #c79a3e;
+      border-right: 3px solid #c79a3e;
+      border-radius: 0 12px 0 0;
+    }
+
+    .corner-bl {
+      bottom: 8px;
+      left: 8px;
+      border-bottom: 3px solid #c79a3e;
+      border-left: 3px solid #c79a3e;
+      border-radius: 0 0 0 12px;
+    }
+
+    .corner-br {
+      bottom: 8px;
+      right: 8px;
+      border-bottom: 3px solid #c79a3e;
+      border-right: 3px solid #c79a3e;
+      border-radius: 0 0 12px 0;
+    }
+
+    /* Diamond accent in corners */
+    .corner-diamond {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #b45a3b;
+      transform: rotate(45deg);
+      box-shadow: 0 0 6px rgba(180,90,59,0.5);
+    }
+
+    .diamond-tl {
+      top: -5px;
+      left: -5px;
+    }
+
+    .diamond-tr {
+      top: -5px;
+      right: -5px;
+    }
+
+    .diamond-bl {
+      bottom: -5px;
+      left: -5px;
+    }
+
+    .diamond-br {
+      bottom: -5px;
+      right: -5px;
+    }
+
+    /* QR Code container */
+    .qr-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1rem 0 0.8rem 0;
+      background: white;
+      padding: 16px;
+      border-radius: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    #qrcode {
+      display: inline-block;
+    }
+
+    #qrcode img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 12px;
+      width: 220px;
+      height: 220px;
+    }
+
+    /* Title / Gallery name */
+    .gallery-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #2c6280;
+      letter-spacing: 3px;
+      margin-top: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-title span {
+      color: #c79a3e;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    .gallery-subtitle {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b45a3b;
+      margin-bottom: 0.8rem;
+    }
+
+    /* URL display */
+    .url-display {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.8rem;
+      letter-spacing: 1.5px;
+      color: #7a684e;
+      background: rgba(199,154,62,0.12);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      margin: 0.5rem 0;
+      border: 1px dashed rgba(199,154,62,0.4);
+    }
+
+    /* Decorative band */
+    .decorative-band {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .decorative-band .line {
+      height: 1px;
+      width: 50px;
+      background: linear-gradient(90deg, transparent, #c79a3e, transparent);
+    }
+
+    .decorative-band .star {
+      color: #c79a3e;
+      font-size: 1rem;
+    }
+
+    .decorative-band .diamond-sm {
+      width: 6px;
+      height: 6px;
+      background: #b45a3b;
+      transform: rotate(45deg);
+    }
+
+    /* Call to action */
+    .cta-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-style: italic;
+      color: #8b7456;
+      margin: 0.8rem 0 0.4rem;
+    }
+
+    .cta-text strong {
+      color: #2c6280;
+      font-weight: 600;
+    }
+
+    /* Download button - artistic style */
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #2c6280, #1e4a62);
+      border: none;
+      padding: 0.7rem 1.8rem;
+      margin-top: 1.2rem;
+      border-radius: 40px;
+      color: #fef0da;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(44,98,128,0.3);
+      border: 1px solid rgba(199,154,62,0.5);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #3a7a9a, #2c6280);
+      box-shadow: 0 8px 20px rgba(44,98,128,0.4);
+      color: white;
+    }
+
+    .download-btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Instruction text */
+    .instruction {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      color: #9b866a;
+      margin-top: 1rem;
+      letter-spacing: 1px;
+    }
+
+    /* Responsive */
+    @media (max-width: 550px) {
+      body { padding: 1rem; }
+      .frame-outer { padding: 12px 14px 14px 12px; }
+      .frame-inner { padding: 16px; }
+      #qrcode img { width: 180px; height: 180px; }
+      .gallery-title { font-size: 1.3rem; letter-spacing: 2px; }
+      .gallery-subtitle { font-size: 0.6rem; letter-spacing: 3px; }
+      .url-display { font-size: 0.7rem; }
+      .cta-text { font-size: 0.85rem; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; margin: 0; }
+      body::before, body::after { display: none; }
+      .download-btn { display: none; }
+      .instruction { display: none; }
+      .frame-outer { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="qr-art-frame">
+    <!-- Ornate outer frame -->
+    <div class="frame-outer">
+      <div class="frame-middle">
+        <div class="frame-inner">
+          <!-- Corner ornaments (Iznik-inspired) -->
+          <div class="corner-ornament corner-tl"></div>
+          <div class="corner-ornament corner-tr"></div>
+          <div class="corner-ornament corner-bl"></div>
+          <div class="corner-ornament corner-br"></div>
+          
+          <div class="corner-diamond diamond-tl"></div>
+          <div class="corner-diamond diamond-tr"></div>
+          <div class="corner-diamond diamond-bl"></div>
+          <div class="corner-diamond diamond-br"></div>
+
+          <!-- Decorative top band -->
+          <div class="decorative-band">
+            <div class="line"></div>
+            <span class="star">⚜️</span>
+            <div class="diamond-sm"></div>
+            <span class="star">✦</span>
+            <div class="line"></div>
+          </div>
+
+          <!-- Gallery Title -->
+          <div class="gallery-title">
+            Renk <span>ve</span> Ruh
+          </div>
+          <div class="gallery-subtitle">
+            UZMA KHAN
+          </div>
+
+          <!-- QR Code goes here -->
+          <div class="qr-container" id="qrContainer">
+            <div id="qrcode"></div>
+          </div>
+
+          
+
+          <!-- Call to action -->
+          <div class="cta-text">
+            <strong>✧ www.renkveruh.art ✧</strong><br>
+            Tuvalden kalbe uzanan bir yolculuk
+          </div>
+
+          <!-- Decorative bottom band -->
+          <div class="decorative-band">
+            <div class="line"></div>
+            <div class="diamond-sm"></div>
+            <span class="star">⚜️</span>
+            <div class="line"></div>
+          </div>
+
+          <!-- Small artistic motto -->
+          <div style="font-size: 0.65rem; font-family: 'Raleway', sans-serif; letter-spacing: 1.5px; color: #b87a4a; margin-top: 0.5rem;">
+            Yalova • Istanbul • Bursa
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Download button -->
+    <div style="text-align: center; margin-top: 1.8rem;">
+      <button class="download-btn" id="downloadQRBtn">
+        <span>⬇️</span> SAVE QR CODE AS IMAGE
+      </button>
+      <div class="instruction">
+        💫 Share this artistic QR with friends • They'll discover Renk ve Ruh gallery
+      </div>
+    </div>
+  </div>
+
+  <!-- QR Code Library (lightweight) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  
+  <!-- html2canvas for saving the artistic frame as image -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    // Website URL
+    const WEBSITE_URL = 'https://renkveruh.art';
+    
+    // Generate QR code when page loads
+    let qrCodeInstance = null;
+    
+    function generateQRCode() {
+      const qrContainer = document.getElementById('qrcode');
+      // Clear any existing content
+      qrContainer.innerHTML = '';
+      
+      // Create new QR code
+      qrCodeInstance = new QRCode(qrContainer, {
+        text: WEBSITE_URL,
+        width: 220,
+        height: 220,
+        colorDark: "#2c2822",      // deep ebony for dark modules
+        colorLight: "#ffffff",      // white background
+        correctLevel: QRCode.CorrectLevel.H  // High error correction for artistic look
+      });
+      
+      // Optional: Add a small delay to ensure QR renders properly
+      setTimeout(() => {
+        // Add a subtle golden frame around QR image
+        const qrImg = qrContainer.querySelector('img');
+        if (qrImg) {
+          qrImg.style.borderRadius = '12px';
+          qrImg.style.boxShadow = '0 0 0 3px #c79a3e, 0 0 0 6px rgba(199,154,62,0.2)';
+          qrImg.style.background = 'white';
+        }
+      }, 100);
+    }
+    
+    // Download the entire artistic QR frame as an image
+    async function downloadArtisticQR() {
+      const downloadBtn = document.getElementById('downloadQRBtn');
+      const originalBtnText = downloadBtn.innerHTML;
+      
+      // Show loading state
+      downloadBtn.innerHTML = '<span>⏳</span> PREPARING ARTWORK...';
+      downloadBtn.disabled = true;
+      
+      try {
+        // Target the frame container (the whole artistic QR block)
+        const element = document.querySelector('.qr-art-frame');
+        
+        // Temporarily hide download button and instruction inside capture area?
+        // The button is outside .qr-art-frame, so no issue. But we want only the frame.
+        // We'll capture the .qr-art-frame element which contains the frame + button? 
+        // Wait — button is outside .qr-art-frame? Actually button is inside .qr-art-frame but below.
+        // Let's check structure: .qr-art-frame contains .frame-outer AND .download-btn AND .instruction
+        // To avoid capturing download button inside the saved image, we should hide the button temporarily.
+        
+        const downloadBtnElement = document.querySelector('.download-btn');
+        const instructionElement = document.querySelector('.instruction');
+        
+        // Store original display styles
+        const btnOriginalDisplay = downloadBtnElement.style.display;
+        const instructionOriginalDisplay = instructionElement ? instructionElement.style.display : '';
+        
+        // Hide button and instruction for clean capture
+        downloadBtnElement.style.display = 'none';
+        if (instructionElement) instructionElement.style.display = 'none';
+        
+        // Add a temporary class for high-quality capture
+        element.style.transition = 'none';
+        
+        // Capture with html2canvas at higher scale for better quality
+        const canvas = await html2canvas(element, {
+          scale: 3,
+          backgroundColor: null,
+          logging: false,
+          useCORS: true,
+          allowTaint: false
+        });
+        
+        // Restore button and instruction visibility
+        downloadBtnElement.style.display = btnOriginalDisplay;
+        if (instructionElement) instructionElement.style.display = instructionOriginalDisplay;
+        element.style.transition = '';
+        
+        // Create download link
+        const link = document.createElement('a');
+        const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+        link.download = `renk-ve-ruh-qr-${timestamp}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+      } catch (error) {
+        console.error('Error capturing QR frame:', error);
+        alert('Unable to generate image. Please try again or right-click on the QR code to save.');
+      } finally {
+        // Reset button
+        downloadBtn.innerHTML = originalBtnText;
+        downloadBtn.disabled = false;
+      }
+    }
+    
+    // Alternative: simple right-click save instruction (user-friendly)
+    function addSaveInstructions() {
+      const qrContainer = document.getElementById('qrcode');
+      if (qrContainer) {
+        qrContainer.addEventListener('contextmenu', (e) => {
+          e.preventDefault();
+          const img = qrContainer.querySelector('img');
+          if (img) {
+            // Create temporary link to save just the QR code
+            const link = document.createElement('a');
+            link.download = 'renk-ve-ruh-qr-code.png';
+            link.href = img.src;
+            link.click();
+          }
+        });
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      generateQRCode();
+      addSaveInstructions();
+      
+      // Attach download button handler
+      const downloadBtn = document.getElementById('downloadQRBtn');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadArtisticQR);
+      }
+      
+      // Add a tiny artistic detail: hover effect on frame already in CSS
+      console.log('✨ Renk ve Ruh — Artistic QR Code ready. Share the beauty of Turkish art!');
+    });
+    
+    // Regenerate on window resize? Not needed for QR but ensures quality
+    window.addEventListener('resize', () => {
+      // QR code is fixed size, no need to regenerate
+    });
+  </script>
+</body>
+</html>
