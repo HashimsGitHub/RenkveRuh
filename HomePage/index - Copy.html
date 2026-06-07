@@ -157,7 +157,7 @@
       color: #7a684e; text-transform:uppercase;
     }
     .hero-tagline {
-      font-size:1.1rem; font-style:normal;
+      font-size:1.1rem; font-weight: bold;
       color: #9b7b54; letter-spacing:1px;
       background: rgba(255,248,235,0.7); display: inline-block;
       padding:0.4rem 1.5rem; border-radius: 40px;
@@ -559,32 +559,33 @@
 <div class="page">
   <header class="hero">
     <div class="ornament"><div class="diamond"></div><div class="line"></div><span class="ornament-star">✧</span><div class="line"></div><div class="diamond"></div></div>
-    <p class="hero-subtitle-top">Istanbul — Konya — İznik</p>
+    <p class="hero-subtitle-top">Yalova — Istanbul — Bursa</p>
     <h1>Renk <span class="amp">ve</span> Ruh</h1>
-    <h2>Uzma Khan</h2>
+    <h2><strong>Uzma Khan</strong></h2>
     <div class="ornament"><div class="diamond"></div><div class="line" style="width:50px"></div><span class="ornament-star">⚜️</span><div class="line" style="width:50px"></div><div class="diamond"></div></div>
-    <p class="hero-tagline">Renklerin ruhla buluştuğu yer | Where colors meet the soul</p>
+    <p class="hero-tagline"><strong>Renklerin ruhla buluştuğu yer | Where colors meet the soul</strong></p>
   </header>
 
   <section id="featured" class="carousel-section">
-    <div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ EXHIBITS ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Moving masterpieces — Turkish art in motion</p></div>
+    <div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ EXHIBITS ◈</h3><div class="line"></div><div class="diamond"></div></div><p><strong>Moving masterpieces — Turkish art in motion</strong></p></div>
     <div id="scanStatus"></div><div id="carouselWrap"><div class="loading-state"><span class="loading-dots">curating video exhibits</span></div></div>
   </section>
 
-  <section id="collections"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ COLLECTION ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Every piece, a fragment of Turkish heritage</p></div>
+  <section id="collections"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ COLLECTION ◈</h3><div class="line"></div><div class="diamond"></div></div><p><strong>Every piece, a fragment of Turkish heritage</strong></p></div>
     <div id="gridWrap"><div class="loading-state"><span class="loading-dots">assembling collection</span></div></div>
   </section>
 
-  <section id="craft-stories"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ ARTISAN FILMS ◈</h3><div class="line"></div><div class="diamond"></div></div><p>Witness the hands that weave, glaze and carve</p></div>
+  <section id="craft-stories"><div class="section-header"><div class="ornament"><div class="diamond"></div><div class="line"></div><h3>◈ ARTISAN FILMS ◈</h3><div class="line"></div><div class="diamond"></div></div><p><strong>Witness the hands that weave, glaze and carve<strong></p></div>
     <div id="videoScanStatus" style="text-align:center; font-family:Raleway; font-size:0.7rem; letter-spacing:2px; color:#8b7456;"></div>
     <div id="videoWrap"><div class="loading-state"><span class="loading-dots">searching artisan films</span></div></div>
   </section>
 
-  <div id="about" class="legacy-note"><div class="ornament"><div class="diamond"></div><div class="line"></div><span>⚜️ OUR STORY ⚜️</span><div class="line"></div><div class="diamond"></div></div>
+  <div id="about" class="legacy-note"><div class="ornament"><div class="diamond"></div><div class="line"></div><span><strong>⚜️ OUR STORY ⚜️</strong></span><div class="line"></div><div class="diamond"></div></div>
     <p>Renk ve Ruh means “Colors and Soul.” It reflects our belief that every artwork should carry both beauty and emotion. Inspired by nature, creativity, and handcrafted artistry, we create unique pieces that add warmth, character, and a personal touch to your home.</p>
     <p><strong>Tuvalden kalbe uzanan bir yolculuk.</strong></p>
+    <p>✦ Contact me : renkveruh@gmail.com ✦</p>
   </div>
-  <footer><span>🏺 Uzma Khan</span> <span>⚜️ Yalova</span> <span>© 2026 · Renk ve Ruh</span></footer>
+  <footer><strong><span>🏺 Uzma Khan</span> <span>⚜️ Yalova</span> <span>© 2026 · Renk ve Ruh</span></strong></footer>
 </div>
 
 <!-- Lightboxes -->
@@ -642,8 +643,8 @@ function renderExhibitCarousel(videos) {
     return `<div class="swiper-slide">
       <div class="gallery-frame" onclick="openExhibitVideoLightbox('${u}', 'Exhibit ${formattedNum} — Turkish Art in Motion')">
         <div class="frame-inner">
-          <video preload="metadata" muted playsinline poster="">
-            <source src="${u}#t=2" type="video/mp4">
+          <video preload="none" muted playsinline poster="${BASE_URL}Exhibit${formattedNum}.jpg">
+            <source src="${u}" type="video/mp4">
           </video>
           <div class="video-play-icon"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
           <span class="art-badge">📽️ Exhibit ${formattedNum}</span>
@@ -656,7 +657,6 @@ function renderExhibitCarousel(videos) {
   }).join('');
   wrap.innerHTML = `<div class="swiper mySwiper"><div class="swiper-wrapper">${slides}</div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>`;
   new Swiper('.mySwiper', { loop: videos.length > 1, speed: 800, spaceBetween: 24, centeredSlides: true, slidesPerView: 1, navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }, pagination: { el: '.swiper-pagination', clickable: true }, autoplay: { delay: 5500, disableOnInteraction: false } });
-  seekVideoThumbnails();
 }
 
 function openExhibitVideoLightbox(src, caption) {
@@ -701,18 +701,10 @@ function openImageModal(src, caption) {
 function renderVideos(videos) {
   let wrap = document.getElementById('videoWrap');
   if (!videos.length) { wrap.innerHTML = '<div class="no-media">🎬 Artisan films will appear here — upload Video001.mp4 etc.</div>'; return; }
-  let cards = videos.map(({ url: u, index: i }) => `<div class="video-frame-outer"><div class="video-inner"><video preload="metadata" playsinline id="vid_${i}"><source src="${u}#t=2" type="video/mp4"></video><div class="play-overlay" onclick="openVidLight('${u}','Artisan Film — Video ${zpad(i,VID_PAD)}')"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div><span class="video-badge-art">🎥 Video ${zpad(i,VID_PAD)}</span></div><div class="video-caption"><div class="v-title">Handcraft · ${zpad(i,VID_PAD)}</div><div class="v-meta">⚜️ Turkish Handmade Legacy ⚜️</div></div></div>`).join('');
+  let cards = videos.map(({ url: u, index: i }) => `<div class="video-frame-outer"><div class="video-inner"><video preload="none" playsinline poster="${BASE_URL}Video${zpad(i,VID_PAD)}.jpg" id="vid_${i}"><source src="${u}" type="video/mp4"></video><div class="play-overlay" onclick="openVidLight('${u}','Artisan Film — Video ${zpad(i,VID_PAD)}')"><div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div></div><span class="video-badge-art">🎥 Video ${zpad(i,VID_PAD)}</span></div><div class="video-caption"><div class="v-title">Handcraft · ${zpad(i,VID_PAD)}</div><div class="v-meta">⚜️ Turkish Handmade Legacy ⚜️</div></div></div>`).join('');
   wrap.innerHTML = `<div class="video-grid">${cards}</div>`;
-  seekVideoThumbnails();
 }
 
-function seekVideoThumbnails() {
-  document.querySelectorAll('video[preload="metadata"]').forEach(v => {
-    v.addEventListener('loadedmetadata', () => {
-      v.currentTime = Math.min(2, v.duration * 0.1);
-    }, { once: true });
-  });
-}
 
 (async () => {
   const exhibitStatus = document.getElementById('scanStatus');
